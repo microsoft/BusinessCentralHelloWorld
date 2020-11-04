@@ -25,7 +25,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run pipeline
         env:
-          InsiderSasToken = ${{ secrets.InsiderSasToken }}
-          LicenseFile = ${{ secrets.LicenseFile }}
+          InsiderSasToken: ${{ secrets.InsiderSasToken }}
+          LicenseFile: ${{ secrets.LicenseFile }}
         run: ..\scripts\DevOps-Pipeline.ps1 -version CI
 
