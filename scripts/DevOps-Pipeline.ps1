@@ -12,7 +12,13 @@
 
 dir env:
 
-$buildArtifactFolder = $ENV:BUILD_ARTIFACTSTAGINGDIRECTORY
+if ($environment -eq "AzureDevOps") {
+    $buildArtifactFolder = $ENV:BUILD_ARTIFACTSTAGINGDIRECTORY
+}
+elseif ($environment -eq "GitHubActions") {
+    $buildArtifactFolder = Join-Path $ENV:GITHUB_WORKSPACE "output"
+    New-Item $buildArtifactFolder -ItemType Directory | Out-Null
+}
 $baseFolder = (Get-Item (Join-Path $PSScriptRoot "..")).FullName
 . (Join-Path $PSScriptRoot "Read-Settings.ps1") -environment $environment -version $version
 . (Join-Path $PSScriptRoot "Install-BcContainerHelper.ps1") -bcContainerHelperVersion $bcContainerHelperVersion -genericImageName $genericImageName
