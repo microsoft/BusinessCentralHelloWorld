@@ -38,12 +38,30 @@ jobs:
       - name: Publish Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: output
-          path: |
-            output/Apps/
-            output/RuntimePackages/
-            output/TestApps/
-            output/testresults*.xml
+          name: Apps
+          path: output/Apps/
+          if-no-files-found: Ignore
+
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: RuntimePackages
+          path: output/RuntimePackages/
+          if-no-files-found: Ignore
+
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: TestApps
+          path: output/TestApps/
+          if-no-files-found: Ignore
+
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: TestResults
+          path: output/testresults*.xml
+          if-no-files-found: Ignore
 
       - name: Cleanup
         if: always()
