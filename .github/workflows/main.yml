@@ -10,15 +10,15 @@ on:
   pull_request:
     branches: [ master ]
 
-defaults:
-  shell: PowerShell
-  working-directory: scripts
-
 env:
   version: ci
   appVersion: '2.0'
   appBuild: ${{github.run_number}}
   appRevision: 0
+
+defaults:
+  shell: PowerShell
+  working-directory: scripts
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
