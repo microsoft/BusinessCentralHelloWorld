@@ -11,7 +11,6 @@ on:
     branches: [ master ]
 
 env:
-  agent_name: "Hosted Agent"
   version: ci
   appVersion: '2.0'
   appBuild: ${{github.run_number}}
