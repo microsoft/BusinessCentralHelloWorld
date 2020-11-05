@@ -2,7 +2,7 @@
     "name": "HelloWorld",
     "memoryLimit": "6G",
     "installApps": "",
-    "previousApps": "https://businesscentralapps.azureedge.net/helloworld/latest/apps.zip",
+    "previousApps": "",
     "appFolders": "app,base",
     "testFolders": "test",
     "installTestFramework": true,

@@ -10,6 +10,16 @@ on:
   pull_request:
     branches: [ master ]
 
+defaults:
+  shell: PowerShell
+  working-directory: scripts
+
+env:
+  version: ci
+  appVersion: '2.0'
+  appBuild: ${{github.run_number}}
+  appRevision: 0
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -27,4 +37,4 @@ jobs:
         env:
           InsiderSasToken: ${{ secrets.InsiderSasToken }}
           LicenseFile: ${{ secrets.LicenseFile }}
-        run: powershell .\scripts\DevOps-Pipeline.ps1 -version CI
+        run: .\DevOps-Pipeline.ps1 -version "${{version}}" --appBuild ${{appBuild}} -appRevision ${{appRevision}}

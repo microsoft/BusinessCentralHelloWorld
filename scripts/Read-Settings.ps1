@@ -1,10 +1,12 @@
 Param(
-    [switch] $local,
+    [Parameter(Mandatory=$false)]
+    [ValidateSet('AzureDevOps', 'GithubActions', 'GitLab', 'Local')]
+    [string] $runner = 'AzureDevOps',
     [string] $version = ""
 )
 
 $agentName = ""
-if (!$local) {
+if ($runner -ne 'Local') {
     $agentName = $ENV:AGENT_NAME
 }
 
@@ -33,7 +35,7 @@ else {
     $containerName = "$($pipelineName.Replace('.','-') -replace '[^a-zA-Z0-9---]', '')".ToLowerInvariant()
 }
 Write-Host "Set containerName = $containerName"
-if (!$local) {
+if ($runner -eq 'AzureDevOps') {
     Write-Host "##vso[task.setvariable variable=containerName]$containerName"
 }
 
