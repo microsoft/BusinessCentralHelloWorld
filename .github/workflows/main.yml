@@ -38,4 +38,4 @@ jobs:
         env:
           InsiderSasToken: ${{ secrets.InsiderSasToken }}
           LicenseFile: ${{ secrets.LicenseFile }}
-        run: .\DevOps-Pipeline.ps1 -version "${{version}}" --appBuild ${{appBuild}} -appRevision ${{appRevision}}
+        run: .\DevOps-Pipeline.ps1 -version "${{env.version}}" --appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
