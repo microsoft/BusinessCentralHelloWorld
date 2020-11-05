@@ -1,17 +1,15 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: "Next Minor"
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  schedule:
+  - cron: '0 0 * * *'
 
 env:
-  version: ci
+  version: nextminor
   appVersion: '2.0'
   appBuild: ${{github.run_number}}
   appRevision: 0
@@ -37,7 +35,7 @@ jobs:
         env:
           InsiderSasToken: ${{ secrets.InsiderSasToken }}
           LicenseFile: ${{ secrets.LicenseFile }}
-        run: scripts\DevOps-Pipeline.ps1 -version ${{env.version}} -appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
+        run: scripts\DevOps-Pipeline.ps1 -environment GitHubActions -version ${{env.version}} -appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
 
       - name: Publish Test Results
         uses: mikepenz/action-junit-report@v1

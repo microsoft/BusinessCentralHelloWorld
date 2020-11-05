@@ -10,6 +10,8 @@
     [int] $appRevision = 0
 )
 
+dir env:
+
 $buildArtifactFolder = $ENV:BUILD_ARTIFACTSTAGINGDIRECTORY
 $baseFolder = (Get-Item (Join-Path $PSScriptRoot "..")).FullName
 . (Join-Path $PSScriptRoot "Read-Settings.ps1") -environment $environment -version $version
