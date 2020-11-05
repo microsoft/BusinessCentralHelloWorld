@@ -17,8 +17,9 @@ env:
   appRevision: 0
 
 defaults:
-  shell: PowerShell
-  working-directory: scripts
+  run:
+    shell: PowerShell
+    working-directory: scripts
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
