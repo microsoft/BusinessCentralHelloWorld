@@ -44,3 +44,7 @@ jobs:
         with:
           report_paths: 'testresults*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup
+        if: always()
+        run: scripts\Cleanup.ps1

@@ -1,7 +1,7 @@
 ﻿Param(
     [Parameter(Mandatory=$false)]
     [ValidateSet('AzureDevOps','GithubActions','GitLab')]
-    [string] $runner = 'AzureDevOps',
+    [string] $environment = 'AzureDevOps',
     [Parameter(Mandatory=$true)]
     [string] $version,
     [Parameter(Mandatory=$false)]
@@ -12,7 +12,7 @@
 
 $buildArtifactFolder = $ENV:BUILD_ARTIFACTSTAGINGDIRECTORY
 $baseFolder = (Get-Item (Join-Path $PSScriptRoot "..")).FullName
-. (Join-Path $PSScriptRoot "Read-Settings.ps1") -runner $runner -version $version
+. (Join-Path $PSScriptRoot "Read-Settings.ps1") -environment $environment -version $version
 . (Join-Path $PSScriptRoot "Install-BcContainerHelper.ps1") -bcContainerHelperVersion $bcContainerHelperVersion -genericImageName $genericImageName
 
 $params = @{}
@@ -61,8 +61,8 @@ Run-AlPipeline @params `
     -enableAppSourceCop:$enableAppSourceCop `
     -enablePerTenantExtensionCop:$enablePerTenantExtensionCop `
     -enableUICop:$enableUICop `
-    -azureDevOps:($runner -eq 'AzureDevOps') `
-    -gitLab:($runner -eq 'GitLab') `
+    -azureDevOps:($environment -eq 'AzureDevOps') `
+    -gitLab:($environment -eq 'GitLab') `
     -AppSourceCopMandatoryAffixes $appSourceCopMandatoryAffixes `
     -AppSourceCopSupportedCountries $appSourceCopSupportedCountries `
     -additionalCountries $additionalCountries `
@@ -70,7 +70,7 @@ Run-AlPipeline @params `
     -CreateRuntimePackages:$CreateRuntimePackages `
     -appBuild $appBuild -appRevision $appRevision
 
-if ($runner -eq 'AzureDevOps') {
+if ($environment -eq 'AzureDevOps') {
     Write-Host "##vso[task.setvariable variable=TestResults]$allTestResults"
 }
 
