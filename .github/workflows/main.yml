@@ -11,6 +11,7 @@ on:
     branches: [ master ]
 
 env:
+  agent_name: "Hosted Agent"
   version: ci
   appVersion: '2.0'
   appBuild: ${{github.run_number}}
@@ -19,9 +20,8 @@ env:
 defaults:
   run:
     shell: PowerShell
-    working-directory: scripts
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -38,4 +38,16 @@ jobs:
         env:
           InsiderSasToken: ${{ secrets.InsiderSasToken }}
           LicenseFile: ${{ secrets.LicenseFile }}
-        run: .\DevOps-Pipeline.ps1 -version "${{env.version}}" -appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
+        run: scripts\DevOps-Pipeline.ps1 -version ${{env.version}} -appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: Test Results
+          comment_title: Test Statistics
+          hide_comments: all but latest
+          comment_on_pr: true
+          files: testresults*.xml
+          report_individual_runs: true
+          deduplicate_classes_by_file_name: false
