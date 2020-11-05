@@ -26,7 +26,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -39,15 +39,3 @@ jobs:
           InsiderSasToken: ${{ secrets.InsiderSasToken }}
           LicenseFile: ${{ secrets.LicenseFile }}
         run: scripts\DevOps-Pipeline.ps1 -version ${{env.version}} -appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
-
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          check_name: Test Results
-          comment_title: Test Statistics
-          hide_comments: all but latest
-          comment_on_pr: true
-          files: testresults*.xml
-          report_individual_runs: true
-          deduplicate_classes_by_file_name: false
