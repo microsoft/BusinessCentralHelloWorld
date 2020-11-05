@@ -39,7 +39,7 @@ jobs:
           LicenseFile: ${{ secrets.LicenseFile }}
         run: scripts\DevOps-Pipeline.ps1 -version ${{env.version}} -appBuild ${{env.appBuild}} -appRevision ${{env.appRevision}}
 
-      - name: Publish Test Report
+      - name: Publish Test Results
         uses: mikepenz/action-junit-report@v1
         with:
           report_paths: 'testresults*.xml'
