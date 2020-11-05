@@ -1,4 +1,4 @@
-name: "Next Minor"
+name: "Current"
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  version: nextminor
+  version: current
   appVersion: '2.0'
   appBuild: ${{github.run_number}}
   appRevision: 0
