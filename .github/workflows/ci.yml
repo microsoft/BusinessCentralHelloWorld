@@ -40,28 +40,30 @@ jobs:
         with:
           name: Apps
           path: output/Apps/
-          if-no-files-found: Ignore
 
       - name: Publish Artifacts - Runtime Packages
         uses: actions/upload-artifact@v2
         with:
           name: RuntimePackages
           path: output/RuntimePackages/
-          if-no-files-found: Ignore
 
       - name: Publish Artifacts - Test Apps
         uses: actions/upload-artifact@v2
         with:
           name: TestApps
           path: output/TestApps/
-          if-no-files-found: Ignore
 
       - name: Publish Artifacts - Test Results
         uses: actions/upload-artifact@v2
         with:
           name: TestResults
           path: output/testresults*.xml
-          if-no-files-found: Ignore
+
+      - name: Publish Artifacts - Test Appsx
+        uses: actions/upload-artifact@v2
+        with:
+          name: TestAppsx
+          path: output/TestAppsx/
 
       - name: Cleanup
         if: always()
