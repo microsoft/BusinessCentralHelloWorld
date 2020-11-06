@@ -17,7 +17,7 @@ defaults:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: Windows-latest
 
     steps:
       - uses: actions/checkout@v2
